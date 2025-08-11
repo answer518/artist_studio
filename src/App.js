@@ -1,23 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { ethers } from "ethers";
 function App() {
+  const connect = async () => {
+    if (window.ethereum) {
+      debugger;
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      const signer = provider.getSigner();
+      console.log(signer);
+    } else {
+      alert("Please install MetaMask");
+
+    }
+
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={connect}>Connect Wallet </button>
     </div>
   );
 }
