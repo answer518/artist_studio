@@ -1,16 +1,22 @@
-import { ethers } from "hardhat";
+/* eslint-disable no-script-url */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+// import { ethers } from "ethers";
+import { connect } from "../service/connection-service";
+import "react-notifications-component/dist/theme.css";
 function Connect() {
   const connectWallet = async () => {
-    // @ts-ignore
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    const signer = provider.getSigner();
-    // const addr = await signer.getAddress();
+    try {
+      await connect();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div>
-      <button onClick={connectWallet}>Connect Wallet</button>
+      <a href="javascript: void(0);" onClick={connectWallet}>
+        connect
+      </a>
     </div>
   );
 }

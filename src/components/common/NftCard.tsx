@@ -9,7 +9,7 @@ function NftCard({ nft }: { nft: Nft }) {
       style={{ width: 240 }}
       cover={<img alt="example" src={nft.imageUri} />}
     >
-      <Meta title={nft.name} description={nft.descriptipn} />
+      <Meta title={nft.name} description={nft.description} />
     </Card>
   );
 }
