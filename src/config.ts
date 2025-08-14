@@ -58,3 +58,8 @@ const selection = 0;
 export const rpcUrl = () => {
   return confs[selection].params[0].rpcUrls[0];
 };
+
+export const IPFS = {
+  domain: "127.0.0.1",
+  url_prefix: "http://127.0.0.1:8080/ipfs/",
+};
