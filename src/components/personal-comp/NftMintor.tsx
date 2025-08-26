@@ -6,6 +6,7 @@ import { useState } from "react";
 import { NftMeta } from "../../service/types";
 import { addToIpfs } from "../../service/ipfs-service";
 import { messageBox } from "../../service/message-service";
+import { mintNFT } from "../../service/nft-service";
 const props = {
   name: "file",
   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
@@ -33,7 +34,26 @@ function NftMintor() {
     }
   };
 
-  const mint = async () => {};
+  const mint = async () => {
+    try {
+      const data: NftMeta = { ...meta, imageUri: uri };
+      const json = JSON.stringify(data);
+      const metauri = await addToIpfs(json);
+      messageBox("success", "", metauri);
+      const { success, tokenId } = await mintNFT(metauri);
+
+      if (success && tokenId) {
+        messageBox("success", "", `Minted NFT with tokenId ${tokenId}`);
+        navigate(`/personal/collectible-browse`);
+      } else {
+        messageBox("danger", "", "Minting NFT failed");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        messageBox("danger", "", error.message);
+      }
+    }
+  };
 
   return (
     <div className={styles.CreatorWrapper}>
