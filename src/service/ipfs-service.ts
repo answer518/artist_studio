@@ -1,10 +1,12 @@
 import { create as ipfsHttpClient } from "ipfs-http-client";
+import axios from "axios";
+
 import { IPFS } from "../config";
-// import axios from "axios";
+
 const ipfs = ipfsHttpClient({
   host: IPFS.domain,
   port: 5001,
-  protocal: "http",
+  // protocal: "http",
 });
 export const storeMeta = async (data: any) => {
   const json = JSON.stringify(data);
@@ -22,4 +24,9 @@ export const addToIpfs = async (entity: any): Promise<string> => {
   const cid = added.path;
   const rst = IPFS.url_prefix + cid;
   return rst;
+};
+
+export const readArticle = async (uri: string): Promise<string> => {
+  const res = await axios.get(uri);
+  return res.data;
 };

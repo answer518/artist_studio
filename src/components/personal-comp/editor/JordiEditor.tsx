@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Layout, theme, Space, Button, Input } from "antd";
+import { Layout, theme, Space, Button, Input, message } from "antd";
 import { useLocation } from "react-router-dom";
 import JordiEditor from "jodit-react";
 import { saveArticle } from "../../../service/store-service";
+import { addToIpfs } from "../../../service/ipfs-service";
+import { mintNFT } from "../../../service/nft-service";
+import { messageBox } from "../../../service/message-service";
 
 const { Content, Footer } = Layout;
 
@@ -39,7 +42,22 @@ const Example = () => {
   }, []);
 
   async function publishPost() {
-    console.log("publishPost");
+    await mintArticle();
+  }
+
+  async function mintArticle() {
+    let uri = await addToIpfs(content);
+    messageBox("success", "", uri);
+    let meta = { name: title, description: title, type: "article", uri };
+    let entity = JSON.stringify(meta);
+    let tokenURI = await addToIpfs(entity);
+    messageBox("success", "", tokenURI);
+    let { success, tokenId } = await mintNFT(tokenURI);
+    if (success) {
+      messageBox("success", "", tokenId || "");
+    } else {
+      messageBox("danger", "", "mint failed!");
+    }
   }
 
   async function savePost() {

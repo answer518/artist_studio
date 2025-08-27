@@ -66,3 +66,14 @@ export const mintNFT = async (
   let tokenId = value.toNumber();
   return { success: true, tokenId };
 };
+
+export const ownedTypeNFT = async (
+  type: string
+): Promise<{ success: boolean; data: Nft[] }> => {
+  let { success, data } = await owned();
+  if (!success) {
+    return { success, data };
+  }
+  let rst = data.filter((e: Nft) => e.type === type);
+  return { success: true, data: rst };
+};
