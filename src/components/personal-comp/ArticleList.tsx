@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Table } from "antd";
+import { Link } from "react-router-dom";
 
 function ArticleList() {
   const [articleList, setArticleList] = useState([]);
@@ -11,9 +12,9 @@ function ArticleList() {
       dataIndex: "title",
       width: 500,
       render: (text: string) => (
-        <a href={`/article/${text}`} target="_blank" rel="noopener noreferrer">
+        <Link to={`/article/${text}`} target="_blank">
           {text}
-        </a>
+        </Link>
       ),
     },
     { title: "内容", dataIndex: "content" },

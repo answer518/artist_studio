@@ -54,7 +54,7 @@ const Example = () => {
     messageBox("success", "", tokenURI);
     let { success, tokenId } = await mintNFT(tokenURI);
     if (success) {
-      messageBox("success", "", tokenId || "");
+      messageBox("success", "", String(tokenId));
     } else {
       messageBox("danger", "", "mint failed!");
     }

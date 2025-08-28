@@ -1,31 +1,42 @@
 import { ethers } from "ethers";
 import axios from "axios";
-import { Nft } from "./types";
-import NFT_ABI from "../../artifacts/contracts/ArtistNFT.sol/ArtistNFT.json";
-import { configuration, rpcUrl } from "../config";
-import { trying } from "./connection-service";
 
+import { trying } from "./connection-service";
+import { Nft } from "./types";
+import NFT from "../artifacts/contracts/ArtistNFT.sol/ArtistNFT.json";
+import { configuration, rpcUrl } from "../config";
+
+// 获取当前用户拥有的所有NFT
 export const owned = async (): Promise<{ success: boolean; data: Nft[] }> => {
+  // 尝试链接区块链网络
   const { success, provider, signer } = await trying();
   if (!success) {
     return { success: false, data: [] };
   }
 
+  // 获取用户钱包地址
   const address = await signer?.getAddress();
+  // 创建NFT合约实例
   const nft = new ethers.Contract(
     configuration().nftAddress,
-    NFT_ABI.abi,
+    NFT.abi,
     provider
   );
 
+  // 查询用户拥有的NFT数量
   const count = await nft.balanceOf(address);
+  // 将数量转换为数字
   const amount = count.toNumber();
 
   const rst = await Promise.all(
     Array.from({ length: amount }, async (v, i) => {
+      // 获取第i个NFT的tokenId
       const tokenId = await nft.tokenOfOwnerByIndex(address, i);
+      // 获取NFT的元数据URI
       const tokenURI = await nft.tokenURI(tokenId);
+      // 从URI中获取NFT元数据
       const meta = await axios.get(tokenURI);
+      // 返回NFT完整信息
       return { ...meta.data, tokenId, tokenURI };
     })
   );
@@ -37,7 +48,7 @@ export const totalsupply = async (): Promise<number> => {
   const provider = new ethers.JsonRpcProvider(rpcUrl());
   const nft = new ethers.Contract(
     configuration().nftAddress,
-    NFT_ABI.abi,
+    NFT.abi,
     provider
   );
   const total = await nft.totalSupply();
@@ -45,25 +56,24 @@ export const totalsupply = async (): Promise<number> => {
 };
 
 export const mintNFT = async (
-  tokenURI: string
-): Promise<{ success: boolean; tokenId?: string }> => {
+  tokenUri: String
+): Promise<{ success: boolean; tokenId?: number }> => {
   const { success, signer } = await trying();
   if (!success || !signer) {
+    // NotificationManager.warning('', "network not right!", 6000);
     return { success: false };
   }
 
-  let nft = new ethers.Contract(
-    configuration().nftAddress,
-    NFT_ABI.abi,
-    signer
-  );
+  let nft = new ethers.Contract(configuration().nftAddress, NFT.abi, signer);
   const address = await signer.getAddress();
-  const transaction = await nft.connect(signer).mint(tokenURI);
-  const tx = await transaction.wait(1);
+  let transaction = await nft.mint(address, tokenUri);
+  let tx = await transaction.wait(1);
+  debugger;
   let event = tx.events[0];
   let value = event.args[2];
-
+  console.log(value);
   let tokenId = value.toNumber();
+  alert(tokenId);
   return { success: true, tokenId };
 };
 

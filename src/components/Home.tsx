@@ -3,11 +3,11 @@ import "../index.css";
 
 import { EditOutlined, PoundOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
-import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import ArticleBrowser from "./home-comp/ArticleBrowser";
 import MarketBrowser from "./home-comp/MarketBrowser";
 import StarBrowser from "./home-comp/StarBrowser";
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 export default function Home() {
   const {
@@ -34,23 +34,26 @@ export default function Home() {
           defaultOpenKeys={["sub1"]}
           style={{ height: "100%", borderRight: 0 }}
         >
-          <Menu.Item icon={React.createElement(EditOutlined)}>
+          <Menu.Item key={"article"} icon={React.createElement(EditOutlined)}>
             <Link to="article">文章</Link>
           </Menu.Item>
-          <Menu.Item icon={React.createElement(PoundOutlined)}>
+          <Menu.Item key={"market"} icon={React.createElement(PoundOutlined)}>
             <Link to="market">市场</Link>
           </Menu.Item>
-          <Menu.Item icon={React.createElement(UserOutlined)}>
+          <Menu.Item key={"star"} icon={React.createElement(UserOutlined)}>
             <Link to="star">明星</Link>
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout style={{ padding: "0 24px 24px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
+        <Breadcrumb
+          items={[
+            { key: 1, title: "Home" },
+            { key: 2, title: "List" },
+            { key: 3, title: "App" },
+          ]}
+          style={{ margin: "16px 0" }}
+        ></Breadcrumb>
         <Content
           style={{
             padding: 24,

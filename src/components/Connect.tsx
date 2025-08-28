@@ -1,8 +1,7 @@
-/* eslint-disable no-script-url */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 // import { ethers } from "ethers";
 import { connect } from "../service/connection-service";
 import "react-notifications-component/dist/theme.css";
+import { Link } from "react-router-dom";
 function Connect() {
   const connectWallet = async () => {
     try {
@@ -13,11 +12,9 @@ function Connect() {
   };
 
   return (
-    <div>
-      <a href="javascript: void(0);" onClick={connectWallet}>
-        connect
-      </a>
-    </div>
+    <Link to={"/"} onClick={connectWallet}>
+      connect
+    </Link>
   );
 }
 

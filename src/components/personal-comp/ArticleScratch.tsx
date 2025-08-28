@@ -1,11 +1,12 @@
 import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getArticle, getArticleList } from "../../service/store-service";
 
 function ArticleScratch() {
   const navigate = useNavigate();
-  const [articleList, setArticleList] = useState([]);
+  const [articleList, setArticleList] = useState<any[]>([]);
   const columns = [
     { title: "序号", dataIndex: "index", width: 80 },
     {
@@ -13,14 +14,9 @@ function ArticleScratch() {
       dataIndex: "title",
       width: 500,
       render: (text: string) => (
-        <a
-          href="javascript: void(0);"
-          target="_blank"
-          onClick={(e) => edit(text, e)}
-          rel="noopener noreferrer"
-        >
+        <Link to={"/"} target="_blank" onClick={(e) => edit(text, e)}>
           {text}
-        </a>
+        </Link>
       ),
     },
     { title: "内容", dataIndex: "content" },

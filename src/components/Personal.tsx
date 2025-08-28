@@ -5,10 +5,9 @@ import {
   FileOutlined,
   EditOutlined,
   FolderViewOutlined,
-  BookOutlined,
+  // BookOutlined,
   PropertySafetyOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme, Divider } from "antd";
 import { Routes, Route, Link } from "react-router-dom";
 
@@ -19,43 +18,6 @@ import ArticleList from "./personal-comp/ArticleList";
 import ArticleScratch from "./personal-comp/ArticleScratch";
 
 const { Content, Sider } = Layout;
-
-const items2: MenuProps["items"] = [
-  {
-    key: "0",
-    icon: React.createElement(BookOutlined),
-    label: "article",
-    children: [
-      {
-        key: "1",
-        icon: React.createElement(EditOutlined),
-        label: "write",
-      },
-      {
-        key: "2",
-        icon: React.createElement(FolderViewOutlined),
-        label: "browse",
-      },
-    ],
-  },
-  {
-    key: "10",
-    icon: React.createElement(PoundOutlined),
-    label: "collectables",
-    children: [
-      {
-        key: "11",
-        icon: React.createElement(PropertySafetyOutlined),
-        label: "mint",
-      },
-      {
-        key: "12",
-        icon: React.createElement(FolderViewOutlined),
-        label: "browse",
-      },
-    ],
-  },
-];
 
 export default function Personal() {
   const {
@@ -100,16 +62,18 @@ export default function Personal() {
               <Link to="article-browse">浏览</Link>
             </Menu.Item>
           </Menu.SubMenu>
-
           <Divider />
         </Menu>
       </Sider>
       <Layout style={{ padding: "0 24px 24px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
+        <Breadcrumb
+          items={[
+            { key: 1, title: "Home" },
+            { key: 2, title: "List" },
+            { key: 3, title: "App" },
+          ]}
+          style={{ margin: "16px 0" }}
+        ></Breadcrumb>
         <Content
           style={{
             padding: 24,

@@ -20,6 +20,8 @@ function NftMintor() {
     name: "",
     description: "",
     imageUri: "",
+    uri: "",
+    type: "",
   });
   const [uri, setUri] = useState("");
   const store = async (file: any) => {
