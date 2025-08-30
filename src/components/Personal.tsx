@@ -38,12 +38,13 @@ export default function Personal() {
         style={{ background: colorBgContainer }}
       >
         <Menu
+          key={"personal"}
           mode="inline"
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={["sub1"]}
           style={{ height: "100%", borderRight: 0 }}
         >
-          <Menu.SubMenu title="藏品">
+          <Menu.SubMenu key={"sub1"} title="藏品">
             <Menu.Item icon={React.createElement(PoundOutlined)}>
               <Link to="collectible-mint">铸币</Link>
             </Menu.Item>
@@ -51,7 +52,7 @@ export default function Personal() {
               <Link to="collectible-browse">浏览</Link>
             </Menu.Item>
           </Menu.SubMenu>
-          <Menu.SubMenu title="文章">
+          <Menu.SubMenu key={"sub2"} title="文章">
             <Menu.Item icon={React.createElement(EditOutlined)}>
               <Link to="article-write">写文章</Link>
             </Menu.Item>

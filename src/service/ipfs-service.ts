@@ -19,7 +19,7 @@ export const storeMeta = async (data: any) => {
 };
 
 export const addToIpfs = async (entity: any): Promise<string> => {
-  debugger;
+  // debugger;
   const added = await ipfs.add(entity);
   const cid = added.path;
   const rst = IPFS.url_prefix + cid;

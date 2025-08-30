@@ -3,7 +3,7 @@ import { messageBox } from "../service/message-service"
 import { configuration } from '../config'
 
 export const connectOnce = async () => {
-    debugger;
+    // debugger;
     let provider = new ethers.BrowserProvider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     let signer = await provider.getSigner();
@@ -25,8 +25,9 @@ export const trying = async () => {
 }
 export const connect = async () => {
     let { success } = await trying();
-    if (success)
+    if (success) {
         return;
+    }
     const conf = configuration()
     await window.ethereum.request({
         method: "wallet_addEthereumChain",

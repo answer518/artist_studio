@@ -7,13 +7,13 @@ import { NftMeta } from "../../service/types";
 import { addToIpfs } from "../../service/ipfs-service";
 import { messageBox } from "../../service/message-service";
 import { mintNFT } from "../../service/nft-service";
-const props = {
-  name: "file",
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  headers: {
-    authorization: "authorization-text",
-  },
-};
+// const props = {
+//   name: "file",
+//   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+//   headers: {
+//     authorization: "authorization-text",
+//   },
+// };
 function NftMintor() {
   const navigate = useNavigate();
   const [meta, setMeta] = useState<NftMeta>({
