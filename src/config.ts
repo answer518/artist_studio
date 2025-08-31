@@ -14,14 +14,14 @@ type NetworkConfiguration = {
   }[];
 };
 
+// 网络配置管理：遵循应用为主，钱包为辅的原则
 const confs: NetworkConfiguration[] = [
   {
     chainId: 0x7a69,
-    nftAddress:
-      "0xbda9d64384af0ade468fec455e98ddf95fd2b0fb2d16792ca0e2c65e9c2973d7",
+    nftAddress: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0 ",
     params: [
       {
-        chainId: "0x539",
+        chainId: "0x7a69",
         rpcUrls: ["http://127.0.0.1:8545/"],
         chainName: "localhost-hardhat",
         nativeCurrency: {

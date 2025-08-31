@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-// import TopLayout from "./components/TopLayout";
+import TopLayout from "./components/TopLayout";
 import { ReactNotifications } from "react-notifications-component";
-import App from "./App";
+// import App from "./App";
 import { ConfigProvider } from "antd";
 
 const root = ReactDOM.createRoot(
@@ -15,8 +15,8 @@ root.render(
   <BrowserRouter>
     <ReactNotifications />
     <ConfigProvider>
-      {/* <TopLayout /> */}
-      <App />
+      <TopLayout />
+      {/* <App /> */}
     </ConfigProvider>
   </BrowserRouter>
 );

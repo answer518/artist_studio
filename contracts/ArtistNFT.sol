@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract ArtistNFT is ERC721, ERC721URIStorage {
+contract ArtistNFT is ERC721URIStorage {
     uint256 private _tokenIdCounter;
 
     constructor() ERC721("ArtistNFT", "ANFT") {}
 
-    function mint(address artist, string memory uri) public returns (uint256) {
+    function mint(address to, string memory uri) public returns (uint256) {
         _tokenIdCounter++;
         uint256 newTokenId = _tokenIdCounter;
         
-        _safeMint(artist, newTokenId);
+        _safeMint(to, newTokenId);
         _setTokenURI(newTokenId, uri);
         
         return newTokenId;
@@ -22,7 +22,7 @@ contract ArtistNFT is ERC721, ERC721URIStorage {
     function tokenURI(uint256 tokenId)
         public
         view
-        override(ERC721, ERC721URIStorage)
+        override(ERC721URIStorage)
         returns (string memory)
     {
         return super.tokenURI(tokenId);
@@ -31,7 +31,7 @@ contract ArtistNFT is ERC721, ERC721URIStorage {
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721, ERC721URIStorage)
+        override(ERC721URIStorage)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);

@@ -15,7 +15,7 @@ export const trying = async () => {
     const { chainId, address, provider, signer } = await connectOnce();
     const supported = configuration().chainId.toString();
 
-    if (chainId === supported) {
+    if (chainId.toString() === supported) {
         messageBox("success", "", 'chainId: ' + chainId + "      account: " + address.substring(0, 5) + "..")
         return { success: true, provider, signer };
     }
