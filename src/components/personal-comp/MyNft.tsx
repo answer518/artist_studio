@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NftBrowser from "../common/NftBrowser";
-import { owned } from "../../service/nft-service";
+import { ownedTypeNFT } from "../../service/nft-service";
 import { Nft } from "../../service/types";
 
 function MyNft() {
@@ -11,7 +11,7 @@ function MyNft() {
   }, []);
 
   const loadNfts = async () => {
-    const ns = await owned();
+    const ns = await ownedTypeNFT("image");
     if (ns.success) {
       setNfts(ns.data);
     }

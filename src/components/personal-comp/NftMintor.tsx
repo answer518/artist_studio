@@ -38,7 +38,7 @@ function NftMintor() {
 
   const mint = async () => {
     try {
-      const data: NftMeta = { ...meta, imageUri: uri };
+      const data: NftMeta = { ...meta, imageUri: uri, type: "image" };
       const json = JSON.stringify(data);
       const metauri = await addToIpfs(json);
       messageBox("success", "", metauri);

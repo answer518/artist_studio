@@ -44,6 +44,17 @@ export const owned = async (): Promise<{ success: boolean; data: Nft[] }> => {
   return { success: true, data: rst };
 };
 
+export const ownedTypeNFT = async (
+  type: string
+): Promise<{ success: boolean; data: Nft[] }> => {
+  let { success, data } = await owned();
+  if (!success) {
+    return { success, data };
+  }
+  let rst = data.filter((e: Nft) => e.type === type);
+  return { success: true, data: rst };
+};
+
 export const totalsupply = async (): Promise<number> => {
   const provider = new ethers.JsonRpcProvider(rpcUrl());
   const nft = new ethers.Contract(
@@ -76,15 +87,4 @@ export const mintNFT = async (
   // console.log(value);
   let tokenId = Number(value);
   return { success: true, tokenId };
-};
-
-export const ownedTypeNFT = async (
-  type: string
-): Promise<{ success: boolean; data: Nft[] }> => {
-  let { success, data } = await owned();
-  if (!success) {
-    return { success, data };
-  }
-  let rst = data.filter((e: Nft) => e.type === type);
-  return { success: true, data: rst };
 };

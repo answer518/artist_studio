@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Layout, theme, Space, Button, Input, message } from "antd";
 import { useLocation } from "react-router-dom";
 import JordiEditor from "jodit-react";
-import { saveArticle } from "../../../service/store-service";
+import { saveArticle } from "../../../service/article-service";
 import { addToIpfs } from "../../../service/ipfs-service";
 import { mintNFT } from "../../../service/nft-service";
 import { messageBox } from "../../../service/message-service";
@@ -37,8 +37,8 @@ const Example = () => {
   };
 
   useEffect(() => {
-    setTitle(location.state.title);
-    setContent(location.state.content);
+    setTitle(location.state?.title);
+    setContent(location.state?.content);
   }, []);
 
   async function publishPost() {
@@ -64,20 +64,9 @@ const Example = () => {
     saveArticle(title, content);
   }
 
-  async function previewPost() {
-    console.log("previewPost");
-  }
-
   return (
     <Layout>
-      <Content
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: 280,
-          background: colorBgContainer,
-        }}
-      >
+      <Content>
         <Input
           value={title}
           style={{ textAlign: "center", fontSize: 24 }}
@@ -102,9 +91,6 @@ const Example = () => {
           </Button>
           <Button type="primary" onClick={savePost}>
             保存
-          </Button>
-          <Button type="primary" onClick={previewPost}>
-            预览
           </Button>
         </Space>
       </Footer>

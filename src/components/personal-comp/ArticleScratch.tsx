@@ -2,7 +2,7 @@ import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { getArticle, getArticleList } from "../../service/store-service";
+import { getArticle, getArticleList } from "../../service/article-service";
 
 function ArticleScratch() {
   const navigate = useNavigate();

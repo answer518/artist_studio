@@ -29,11 +29,11 @@ export const connect = async () => {
         return;
     }
     const conf = configuration()
+    // 向MetaMask钱包添加新的以太坊网络配置
     await window.ethereum.request({
         method: "wallet_addEthereumChain",
         params: conf.params
 
     });
     await trying();
-
 }

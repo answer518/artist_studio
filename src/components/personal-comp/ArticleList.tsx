@@ -1,15 +1,17 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from "react";
 import { Table } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { readArticle } from "../../service/ipfs-service";
+import { ownedTypeNFT } from "../../service/nft-service";
 
 function ArticleList() {
-  const [articleList, setArticleList] = useState([]);
+  const navigator = useNavigate();
+  const [articleList, setArticleList] = useState<any[]>([]);
   const columns = [
-    { title: "序号", dataIndex: "index", width: 80 },
-    { title: "ID", dataIndex: "author", width: 100 },
     {
       title: "标题",
-      dataIndex: "title",
+      dataIndex: "name",
       width: 500,
       render: (text: string) => (
         <Link to={`/article/${text}`} target="_blank">
@@ -17,7 +19,16 @@ function ArticleList() {
         </Link>
       ),
     },
-    { title: "内容", dataIndex: "content" },
+    {
+      title: "内容",
+      dataIndex: "entity",
+      width: 500,
+      render: (entity: any) => (
+        <a href="#" target="_self" onClick={(e) => view(entity)}>
+          阅读
+        </a>
+      ),
+    },
   ];
 
   useEffect(() => {
@@ -25,8 +36,19 @@ function ArticleList() {
   }, []);
 
   async function loadArticleList() {
-    setArticleList([]);
+    let { success, data } = await ownedTypeNFT("article");
+    if (success) {
+      let rdata = data.map((e, i) => ({ index: i, entity: e, ...e }));
+      setArticleList(rdata);
+    }
   }
+
+  const view = async (entity: any) => {
+    let content = await readArticle(entity.uri);
+    navigator("/personal/article-read", {
+      state: { title: entity.name, content },
+    });
+  };
 
   return (
     <div>

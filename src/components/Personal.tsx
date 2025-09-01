@@ -13,6 +13,7 @@ import { Routes, Route, Link } from "react-router-dom";
 
 import NftMintor from "./personal-comp/NftMintor";
 import MyNft from "./personal-comp/MyNft";
+import ArticleViewer from "./personal-comp/browser/ArticleViewer";
 import ArticleEditor from "./personal-comp/ArticleEditor";
 import ArticleList from "./personal-comp/ArticleList";
 import ArticleScratch from "./personal-comp/ArticleScratch";
@@ -84,6 +85,7 @@ export default function Personal() {
           }}
         >
           <Routes>
+            <Route path="article-read" element={<ArticleViewer />} />
             <Route path="article-write" element={<ArticleEditor />} />
             <Route path="article-scratch" element={<ArticleScratch />} />
             <Route path="article-browse" element={<ArticleList />} />
