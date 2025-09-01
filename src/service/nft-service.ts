@@ -26,7 +26,7 @@ export const owned = async (): Promise<{ success: boolean; data: Nft[] }> => {
   // 查询用户拥有的NFT数量
   const count = await nft.balanceOf(address);
   // 将数量转换为数字
-  const amount = count.toNumber();
+  const amount = Number(count);
 
   const rst = await Promise.all(
     Array.from({ length: amount }, async (v, i) => {
@@ -66,14 +66,15 @@ export const mintNFT = async (
 
   let nft = new ethers.Contract(configuration().nftAddress, NFT.abi, signer);
   const address = await signer.getAddress();
-  let transaction = await nft.mint(address, tokenUri);
+  // @ts-ignore
+  let transaction = await nft.connect(signer).mint(address, tokenUri);
+  // 等待全网确认，矿工处理
   let tx = await transaction.wait(1);
-  debugger;
-  let event = tx.events[0];
-  let value = event.args[2];
-  console.log(value);
-  let tokenId = value.toNumber();
-  alert(tokenId);
+  const log = tx.logs[0]; // 假设第一个日志是目标事件
+  let event = nft.interface.parseLog(log);
+  let value = event?.args[2];
+  // console.log(value);
+  let tokenId = Number(value);
   return { success: true, tokenId };
 };
 
