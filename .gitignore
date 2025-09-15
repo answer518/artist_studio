@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+.next
 
 # misc
 .DS_Store
@@ -28,15 +28,7 @@ node_modules
 # Hardhat files
 /cache
 /artifacts
-/src/artifacts
-
-# TypeChain files
-/typechain
-/typechain-types
-
-# solidity-coverage files
-/coverage
-/coverage.json
+/app/artifacts
 
 # Hardhat Ignition default folder for deployments against a local node
 ignition/deployments/chain-31337
